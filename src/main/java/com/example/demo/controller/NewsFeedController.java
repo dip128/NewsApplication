@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import com.example.demo.repository.CatagoryRespository;
 import com.example.demo.repository.NewsFeedRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class NewsFeedController {
 	
 	@Autowired
@@ -81,5 +83,14 @@ public class NewsFeedController {
 		 return list;
 	}
 	
+	
+	@GetMapping("/get/report")
+	public List<NewsEntity> getNewsReport(){
+		List<NewsEntity> report = newsRepo.getNewsReport();
+		if(report.size()==0) {
+			return new ArrayList<NewsEntity>();
+		}
+		return report;
+	}
 
 }

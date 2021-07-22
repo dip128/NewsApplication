@@ -20,4 +20,8 @@ public interface NewsFeedRepository extends JpaRepository<NewsEntity, Long>{
 	@Query("update NewsEntity n SET n.click_count=:click_count WHERE n.news_id=:news_id")
 	void updateCount(long news_id, int click_count);
 	
+	
+	@Query(value="SELECT * FROM news_entity n ORDER BY n.click_count DESC",nativeQuery = true)
+	List<NewsEntity> getNewsReport();
+	
 }

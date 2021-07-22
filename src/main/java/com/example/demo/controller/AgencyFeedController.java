@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,7 @@ import com.example.demo.repository.AgencyRepository;
 import com.example.demo.repository.CatagoryRespository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class AgencyFeedController {
 	
 	@Autowired
@@ -51,6 +55,22 @@ public class AgencyFeedController {
 		
 		
 	}
+	
+	@GetMapping("/news/get/catagory")
+	public List<Optional<CatagoryEntity>> getCatagoryForAgency(@RequestParam("agency_id") long agency_id){
+		LOGGER.info("List of Catagory for a particular Aganecy");
+		List<Optional<CatagoryEntity>> cats = new ArrayList<>();
+		List<Long> findCatagoryIdByAgencyId = repo.findCatagoryIdByAgencyId(agency_id);
+		for (Long l : findCatagoryIdByAgencyId) {
+			Optional<CatagoryEntity> cat = catrepo.findById(l);
+			if(cat!=null) {
+				cats.add(cat);
+			}
+			
+		}
+		return cats;
+	}
+	
 	@GetMapping("/news/get")
 	public String getAgencyFeedUrl(@RequestParam("catagory_id") long cat_id, @RequestParam("agency_id") long agency_id) throws WrongInputCombination {
 		
