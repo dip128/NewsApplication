@@ -12,7 +12,7 @@ import com.example.demo.entity.NewsEntity;
 
 public interface NewsFeedRepository extends JpaRepository<NewsEntity, Long>{
 	
-	@Query(value ="SELECT * FROM news_entity a WHERE a.catagory_id=:catagory_id and a.agency_id=:agency_id", nativeQuery = true)
+	@Query(value ="SELECT * FROM news_entity a WHERE a.catagory_id=:catagory_id and a.agency_id=:agency_id order by news_date desc", nativeQuery = true)
 	List<NewsEntity> findByCatagoryIDandAgencyId(long catagory_id,long agency_id);
 
 	@Transactional

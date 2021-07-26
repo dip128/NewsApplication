@@ -36,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 //		.antMatchers("/news/add/**").authenticated()
 //		.antMatchers("/news/delete/**").authenticated()
-//		.antMatchers(HttpMethod.POST, "/").permitAll()
 			.antMatchers("/**").permitAll()
 			.and().httpBasic();
 		http.headers().frameOptions().disable();

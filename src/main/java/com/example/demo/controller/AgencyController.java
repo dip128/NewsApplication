@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,12 @@ public class AgencyController {
 		Agency save = repo.save(agency);
 		
 		return save;
+	}
+	
+	@GetMapping("news/get/agency/{id}")
+	public Optional<Agency> getAgencyById(@PathVariable Long id) {
+		 Optional<Agency> agency = repo.findById(id);
+		 return agency;
 	}
 
 }
